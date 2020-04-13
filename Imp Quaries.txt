@@ -1,0 +1,22 @@
+ALTER TABLE admin_email_verify AUTO_INCREMENT = 1;
+ALTER TABLE entries AUTO_INCREMENT = 1;
+ALTER TABLE entrylogs AUTO_INCREMENT = 1;
+ALTER TABLE shares AUTO_INCREMENT = 1;
+ALTER TABLE transfers AUTO_INCREMENT = 1;
+ALTER TABLE multi_entries AUTO_INCREMENT = 1;
+ALTER TABLE users AUTO_INCREMENT = 1;
+
+
+DELETE FROM admin_email_verify;
+DELETE FROM entries;
+DELETE FROM entrylogs;
+DELETE FROM shares;
+DELETE FROM transfers;
+DELETE FROM multi_entries;
+DELETE FROM users;
+
+
+	
+SET GLOBAL event_scheduler = ON;
+
+CREATE EVENT auto_token_expire ON SCHEDULE EVERY 15 MINUTE DO DELETE FROM admin_email_verify WHERE created_at < NOW() - INTERVAL 60 MINUTE ;
